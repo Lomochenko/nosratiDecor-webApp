@@ -22,8 +22,7 @@ import Footer from './components/FixFooter.vue'
 </template>
 
 <style>
-/* @import '@/assets/css/plugins/bootstrap-grid.min.css';
-@import '@/assets/css/plugins/fontawesome-all.min.css';
+/* @import '@/assets/css/plugins/fontawesome-all.min.css';
 @import '@/assets/css/plugins/animate.css';
 @import '@/assets/css/plugins/slick.css';
 @import '@/assets/css/plugins/swiper.min.css';
@@ -31,5 +30,5 @@ import Footer from './components/FixFooter.vue'
 @import '@/assets/css/plugins/justifiedGallery.min.css';
 @import '@/assets/css/plugins/magnific-popup.css';
 @import '@/assets/css/plugins/youtubepopup.css'; */
-@import '@/assets/css/style.css';
+
 </style>
