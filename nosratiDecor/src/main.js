@@ -2,6 +2,9 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 
+// import pluginsJs from '../public/js/plugins.js'
+// import dsnGrid from '../public/js/dsn-grid.js'
+// import custom from '../public/js/custom.js'
 // after created all sections, change these sources with NPM INSTALATOIN
 import './assets/css/plugins/bootstrap-grid.min.css';
 import './assets/css/plugins/fontawesome-all.min.css';
@@ -20,3 +23,6 @@ const app = createApp(App)
 app.use(router)
 
 app.mount('#app')
+pluginsJs();
+dsnGrid();
+custom();
