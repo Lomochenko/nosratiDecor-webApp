@@ -2,9 +2,10 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 
-// import pluginsJs from '../public/js/plugins.js'
-// import dsnGrid from '../public/js/dsn-grid.js'
-// import custom from '../public/js/custom.js'
+// import {slick} from 'slick-carousel'
+// import pluginsJs from './js/plugins.js'
+// import dsnGrid from './js/dsn-grid.js'
+// import custom from './js/custom.js'
 // after created all sections, change these sources with NPM INSTALATOIN
 import './assets/css/plugins/bootstrap-grid.min.css';
 import './assets/css/plugins/fontawesome-all.min.css';

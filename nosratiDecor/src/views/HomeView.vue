@@ -1,8 +1,48 @@
 <script setup>
 import Animation from '@/components/FixAnimation.vue'
-// import Header from '@/components/FixHeader.vue';
-// import Animation from '@/components/FixAnimation.vue'
-// import Footer from '@/components/FixFooter.vue'
+import { ref } from 'vue';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Autoplay } from 'swiper/modules';
+
+// ایمپورت استایل‌های Swiper
+import 'swiper/swiper-bundle.css';
+
+// داده‌های اسلایدها
+const slides = ref([
+  { image: 'src/assets/img/project/project1/1.jpg', title: 'Slide 1' },
+  { image: 'src/assets/img/project/project1/6.jpg', title: 'Slide 2' },
+  { image: 'src/assets/img/project/project1/3.jpg', title: 'Slide 3' },
+  { image: 'src/assets/img/project/project1/4.jpg', title: 'Slide 4' },
+  { image: 'src/assets/img/project/project1/5.jpg', title: 'Slide 5' },
+]);
+
+// Swiper moduls
+const modules = [Autoplay];
+
+// Responsive setting
+const breakpoints = {
+  // > 320px
+  320: {
+    slidesPerView: 1,
+    spaceBetween: 10,
+  },
+  // > 640px
+  640: {
+    slidesPerView: 2,
+    spaceBetween: 20,
+  },
+  // > 1024px
+  1024: {
+    slidesPerView: 3,
+    spaceBetween: 30,
+  },
+};
+
+// swiper intial
+const onSwiper = (swiper) => {
+  console.log('Swiper initialized:', swiper);
+};
+
 </script>
 
 <template>
@@ -31,7 +71,7 @@ import Animation from '@/components/FixAnimation.vue'
   <!-- end header -->
   <div class="wrapper">
     <!-- recommended projects -->
-    <section class="our-work work-under-header section-margin" data-dsn-col="3">
+    <!-- <section class="our-work work-under-header section-margin" data-dsn-col="3">
       <div class="container">
         <div class="one-title">
           <div class="title-sub-container">
@@ -106,7 +146,42 @@ import Animation from '@/components/FixAnimation.vue'
           </div>
         </div>
       </div>
+    </section> -->
+    <!-- swiper -->
+    <section class="our-work work-under-header section-margin" data-dsn-col="3">
+      <div class="container">
+        <div class="one-title">
+          <div class="title-sub-container">
+            <p class="title-sub">Our Work</p>
+          </div>
+          <h2 class="title-main" data-dsn-animate="up">پروژه های اخیر</h2>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-9 offset-lg-3">
+            <div class="work-container">
+              <swiper :modules="modules" :autoplay="{ delay: 3000, disableOnInteraction: true }" :loop="true"
+                :breakpoints="breakpoints" @swiper="onSwiper">
+                <swiper-slide class="work-item" v-for="(slide, index) in slides" :key="index">
+                  <img :src="slide.image" :alt="slide.title" class="slide-image has-top-bottom" />
+                  <div class="item-border"></div>
+                  <div class="item-info">
+                    <a href="project-5.html" data-dsn-grid="move-up" class="effect-ajax">
+
+                      <h3 class="slide-title">{{ slide.title }}</h3>
+                      <span><span>Veiw Project</span></span>
+                    </a>
+                  </div>
+                </swiper-slide>
+              </swiper>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
+
+    <!-- end swiper -->
     <!-- end recommended projects -->
     <!-- video -->
     <div class="box-seat">
@@ -478,3 +553,18 @@ import Animation from '@/components/FixAnimation.vue'
     <Animation />
   </div>
 </template>
+<style>
+.slide-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+.slide-title {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 1.5rem;
+  color: #333;
+}
+</style>

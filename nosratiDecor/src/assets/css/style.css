@@ -6809,7 +6809,7 @@ body.nav-active .dsn-nav-bar .icon-m .menu-icon__line {
   vertical-align: top;
   position: relative;
   overflow: hidden;
-  margin-right: 50px;
+  /* margin-right: 50px; */
   height: 50vh;
 }
 
@@ -7007,7 +7007,7 @@ body.nav-active .dsn-nav-bar .icon-m .menu-icon__line {
 
 .our-work .work-item {
   height: 70vh;
-  margin: 0 15px;
+  /* margin: 0 15px; */
 }
 
 .client-see {

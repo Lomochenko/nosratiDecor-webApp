@@ -2,7 +2,6 @@
 import { RouterView } from 'vue-router'
 
 import Header from './components/FixHeader.vue'
-import Animation from './components/FixAnimation.vue'
 import Footer from './components/FixFooter.vue'
 
 </script>
