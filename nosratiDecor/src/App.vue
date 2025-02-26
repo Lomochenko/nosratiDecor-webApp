@@ -11,14 +11,12 @@ import Footer from './components/FixFooter.vue'
   <Header />
   <main class="main-root">
     <div id="dsn-scrollbar">
-      <div class="wrapper">
-        <Animation />
-      </div>
+      
+      <RouterView />
       <Footer />
     </div>
   </main>
-  
-  <RouterView />
+
 </template>
 
 <style>
