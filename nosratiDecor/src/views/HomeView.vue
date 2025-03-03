@@ -2,18 +2,19 @@
 import Animation from '@/components/FixAnimation.vue'
 import { ref } from 'vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import { Autoplay } from 'swiper/modules';
+import { Autoplay } from 'swiper';
 
 // ایمپورت استایل‌های Swiper
-import 'swiper/swiper-bundle.css';
+import 'swiper/css';
+import 'swiper/css/autoplay';
 
 // داده‌های اسلایدها
 const slides = ref([
-  { image: 'src/assets/img/project/project1/1.jpg', title: 'Slide 1' },
-  { image: 'src/assets/img/project/project1/6.jpg', title: 'Slide 2' },
-  { image: 'src/assets/img/project/project1/3.jpg', title: 'Slide 3' },
-  { image: 'src/assets/img/project/project1/4.jpg', title: 'Slide 4' },
-  { image: 'src/assets/img/project/project1/5.jpg', title: 'Slide 5' },
+  { image: '@/assets/img/project/project1/1.jpg', title: 'Slide 1' },
+  { image: '@/assets/img/project/project1/6.jpg', title: 'Slide 2' },
+  { image: '@/assets/img/project/project1/3.jpg', title: 'Slide 3' },
+  { image: '@/assets/img/project/project1/4.jpg', title: 'Slide 4' },
+  { image: '@/assets/img/project/project1/5.jpg', title: 'Slide 5' },
 ]);
 
 // Swiper moduls
@@ -189,7 +190,7 @@ const onSwiper = (swiper) => {
         <div class="container-fluid">
           <div class="box-middle-text">
             <h2 data-dsn-animate="text">People a Lift</h2>
-            <p data-dsn-animate="text">When the Escalators Died in Stockholm’s Subway, Reebok Was
+            <p data-dsn-animate="text">When the Escalators Died in Stockholm's Subway, Reebok Was
               There to Give People a Lift.Literally</p>
             <a href="https://vimeo.com/175353205" class="vid">
               <div class="play-button">

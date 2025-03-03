@@ -24,6 +24,6 @@ const app = createApp(App)
 app.use(router)
 
 app.mount('#app')
-pluginsJs();
-dsnGrid();
-custom();
+// pluginsJs();
+// dsnGrid();
+// custom();
