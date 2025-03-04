@@ -1,8 +1,6 @@
 const $ = jQuery;
 const wind = $(window);
 const body = $("body");
-const i = $(window);
-const o = $("body");
 
 // تابع برای آپدیت درصد preloader
 function updatePreloaderPercentage() {
@@ -38,8 +36,7 @@ function removePreloader() {
                     'opacity': '1'
                 });
                 handleCursorVisibility();
-            }, 100); // تاخیر کوتاه برای اطمینان از اتمام کامل preloader
-            
+            }, 100);
         }, 1000);
     }
 }
@@ -145,35 +142,58 @@ function initializeCursor() {
 
 // DSN Grid Library
 const dsnGrid = {
-    // تمام توابع dsn-grid.js
     backgroundPosition: function (e, n, t) {
-        var o, i, a, s, r;
-        return e instanceof jQuery == !1 && (e = jQuery(e)), t = this.getUndefinedVal(t, {}), o = this.getUndefinedVal(t.sizeX, "105%"), i = this.getUndefinedVal(t.sizeY, "105%"), s = this.getUndefinedVal(t.left, "-5%"), r = this.getUndefinedVal(t.top, "-5%"), a = this.getUndefinedVal(t.move, 100), e.css({
+        if (!(e instanceof jQuery)) {
+            e = jQuery(e);
+        }
+        
+        t = t || {};
+        const o = t.sizeX || "105%";
+        const i = t.sizeY || "105%";
+        const s = t.left || "-5%";
+        const r = t.top || "-5%";
+        const a = t.move || 100;
+        
+        e.css({
             width: o,
             height: i,
             left: s,
             top: r,
-            backgroundPositionX: "calc(50% - " + -2 * a + "px)",
-            backgroundPositionY: "calc(50% - " + -2 * a + "px)"
-        }), n = this.getUndefinedVal(n, 1), e.parent().on("mousemove", function (o) {
-            if (void 0 !== t.dataActive && jQuery(this).find(e).hasClass(t.dataActive)) return !1;
-            var i = o.clientX / jQuery(this).width() - .5,
-                s = o.clientY / jQuery(this).height() - .5;
-            TweenLite.to(jQuery(this).find(e), n, {
+            backgroundPositionX: `calc(50% - ${-2 * a}px)`,
+            backgroundPositionY: `calc(50% - ${-2 * a}px)`
+        });
+        
+        n = n || 1;
+        
+        e.parent().on("mousemove", function (o) {
+            if (t.dataActive && jQuery(this).find(e).hasClass(t.dataActive)) return false;
+            
+            const i = o.clientX / jQuery(this).width() - 0.5;
+            const s = o.clientY / jQuery(this).height() - 0.5;
+            
+            gsap.to(jQuery(this).find(e), {
+                duration: n,
                 transformPerspective: 100,
-                x: a * i + a + " ",
-                y: a * s + a + ""
-            }), void 0 !== t.onEnter && t.onEnter(jQuery(this), o)
+                x: `${a * i + a}px`,
+                y: `${a * s + a}px`
+            });
+            
+            if (t.onEnter) t.onEnter(jQuery(this), o);
         }).on("mouseleave", function (o) {
-            TweenMax.to(jQuery(this).find(e), n, {
-                x: a,
-                y: a,
-                ease: Back.easeOut.config(4)
-            }), void 0 !== t.onLeave && t.onLeave(jQuery(this), o)
-        }), dsnGrid
+            gsap.to(jQuery(this).find(e), {
+                duration: n,
+                x: `${a}px`,
+                y: `${a}px`,
+                ease: "back.out(4)"
+            });
+            
+            if (t.onLeave) t.onLeave(jQuery(this), o);
+        });
+        
+        return dsnGrid;
     },
     mouseMove: function (e) {
-        if (e.length <= 0) return;
+        if (!e.length) return;
         
         const cursor = $(e);
         let currentX = 0;
@@ -182,7 +202,6 @@ const dsnGrid = {
         let targetY = 0;
         let fadeTimeout;
         
-        // اطمینان از اینکه cursor قابل مشاهده است
         cursor.css({
             'display': 'block',
             'opacity': 1,
@@ -245,50 +264,260 @@ const dsnGrid = {
                 'height': '30px'
             });
         });
-    },
-    // ... سایر توابع dsn-grid.js
+    }
 };
 
 // Custom Code
 (function($) {
     "use strict";
 
-    function t(n) {
-        function n() {
-            dsnGrid.elementHover(i, "a.link-pop , a > img", "cursor-view"), 
-            dsnGrid.elementHover(i, ".close-wind", "cursor-close"), 
-            dsnGrid.elementHover(i, "a:not(> img) , .dsn-button-sidebar,  button", "cursor-link");
+    function initCursor(n) {
+        function initHover() {
+            dsnGrid.elementHover(i, "a.link-pop , a > img", "cursor-view");
+            dsnGrid.elementHover(i, ".close-wind", "cursor-close");
+            dsnGrid.elementHover(i, "a:not(> img) , .dsn-button-sidebar, button", "cursor-link");
         }
+        
         const i = ".cursor";
-        if (a().isMobiles()) return;
-        if (void 0 !== t && !0 === t) return void n();
-        if (e("body").hasClass("dsn-large-mobile")) return;
-        dsnGrid.mouseMove(i), n();
+        if (isMobileOrTablet()) return;
+        if (n === true) return initHover();
+        if ($("body").hasClass("dsn-large-mobile")) return;
+        
+        dsnGrid.mouseMove(i);
+        initHover();
     }
 
-    function n() {
-        i.off("scroll");
-        let t = $(".dsn-nav-bar");
-        t.removeClass("header-stickytop");
-        let n = 0;
-        var a = $(".wrapper").offset(),
-            o = $(".header-single-post .container").offset(),
-            s = $(".post-full-content").offset(),
-            l = 0;
-        void 0 !== o ? a = o : a.top <= 70 && (a = s), r.getListener(function(e) {
-            n = "scroll" === e.type ? i.scrollTop() : e.offset.y;
-            let o = 70;
-            void 0 !== a && (o = a.top - 100), n > o ? l < n ? t.addClass("nav-bg").addClass("hide-nave") : t.removeClass("hide-nave") : t.removeClass("nav-bg").removeClass("hide-nave"), l = n
+    function initScroll() {
+        const $navBar = $(".dsn-nav-bar");
+        $navBar.removeClass("header-stickytop");
+        
+        let lastScroll = 0;
+        const $wrapper = $(".wrapper");
+        const $headerSinglePost = $(".header-single-post .container");
+        const $postFullContent = $(".post-full-content");
+        
+        let offset = $wrapper.offset();
+        if ($headerSinglePost.length) {
+            offset = $headerSinglePost.offset();
+        } else if (offset.top <= 70) {
+            offset = $postFullContent.offset();
+        }
+        
+        $(window).on("scroll", function() {
+            const scrollTop = $(window).scrollTop();
+            const threshold = offset ? offset.top - 100 : 70;
+            
+            if (scrollTop > threshold) {
+                if (scrollTop > lastScroll) {
+                    $navBar.addClass("nav-bg hide-nave");
+                } else {
+                    $navBar.removeClass("hide-nave");
+                }
+            } else {
+                $navBar.removeClass("nav-bg hide-nave");
+            }
+            
+            lastScroll = scrollTop;
         });
     }
 
-    // ... سایر توابع custom.js
+    function navigation() {
+        const $menuIcon = $('.menu-icon');
+        const $nav = $('.nav');
+        const $navContent = $('.nav-content');
+        const $navItems = $nav.find('.nav__list-item a');
+        const $textMenu = $menuIcon.find('.text-menu');
+        const $textButton = $textMenu.find('.text-button');
+        const $textOpen = $textMenu.find('.text-open');
+        const $textClose = $textMenu.find('.text-close');
+        
+        // تنظیمات اولیه
+        $nav.css({
+            'opacity': '0',
+            'visibility': 'hidden'
+        });
+        
+        $navContent.css({
+            'opacity': '0',
+            'visibility': 'hidden'
+        });
+        
+        // تنظیم حالت اولیه آیتم‌های منو
+        $navItems.css({
+            'opacity': '0',
+            'transform': 'translateX(-10px) scale(0.8) rotate(1deg)'
+        });
+        
+        // تنظیم حالت اولیه متن‌های منو
+        $textMenu.css({
+            'top': '0'
+        });
+        
+        $textOpen.css({
+            'opacity': '0',
+            'visibility': 'hidden',
+            'position': 'absolute',
+            'transform': 'translateY(-50%)'
+        });
+        $textClose.css({
+            'opacity': '0',
+            'visibility': 'hidden',
+            'position': 'absolute',
+            'top': '50%',
+            'left': '0',
+            'transform': 'translateY(-50%)'
+        });
+        $textButton.css({
+            'position': 'relative',
+            'top': '50%',
+            'transform': 'translateY(-50%)'
+        });
+        
+        // انیمیشن hover برای menu-icon
+        $menuIcon.on('mouseenter', function() {
+            if (!$('body').hasClass('nav-active')) {
+                gsap.to($textButton, {
+                    duration: 0.3,
+                    opacity: 0,
+                    y: -20,
+                    onComplete: () => {
+                        $textButton.css('visibility', 'hidden');
+                        $textOpen.css('visibility', 'visible');
+                        gsap.to($textOpen, {
+                            duration: 0.3,
+                            opacity: 1,
+                            y: 0
+                        });
+                    }
+                });
+            }
+        }).on('mouseleave', function() {
+            if (!$('body').hasClass('nav-active')) {
+                gsap.to($textOpen, {
+                    duration: 0.3,
+                    opacity: 0,
+                    y: -20,
+                    onComplete: () => {
+                        $textOpen.css('visibility', 'hidden');
+                        $textButton.css('visibility', 'visible');
+                        gsap.to($textButton, {
+                            duration: 0.3,
+                            opacity: 1,
+                            y: 0
+                        });
+                    }
+                });
+            }
+        });
+        
+        // تابع باز کردن منو
+        function openMenu() {
+            $('body').addClass('nav-active');
+            $nav.css({
+                'opacity': '1',
+                'visibility': 'visible'
+            });
+            $navContent.css({
+                'opacity': '1',
+                'visibility': 'visible'
+            });
+            
+            // انیمیشن متن‌های منو
+            gsap.to($textOpen, {
+                duration: 0.3,
+                opacity: 0,
+                y: -20,
+                onComplete: () => {
+                    $textOpen.css('visibility', 'hidden');
+                    $textClose.css('visibility', 'visible');
+                    gsap.to($textClose, {
+                        duration: 0.3,
+                        opacity: 1,
+                        y: 0
+                    });
+                }
+            });
+            
+            // انیمیشن آیتم‌های منو
+            $navItems.each(function(index) {
+                gsap.to(this, {
+                    duration: 0.5,
+                    opacity: 1,
+                    x: 0,
+                    scale: 1,
+                    rotation: 0,
+                    delay: 0.8 + (index * 0.15),
+                    ease: "power2.out"
+                });
+            });
+        }
+        
+        // تابع بستن منو
+        function closeMenu() {
+            $('body').removeClass('nav-active');
+            
+            // انیمیشن متن‌های منو
+            gsap.to($textClose, {
+                duration: 0.3,
+                opacity: 0,
+                y: -20,
+                onComplete: () => {
+                    $textClose.css('visibility', 'hidden');
+                    $textButton.css('visibility', 'visible');
+                    gsap.to($textButton, {
+                        duration: 0.3,
+                        opacity: 1,
+                        y: 0
+                    });
+                }
+            });
+            
+            // انیمیشن بستن آیتم‌های منو
+            $navItems.each(function(index) {
+                gsap.to(this, {
+                    duration: 0.3,
+                    opacity: 0,
+                    x: -10,
+                    scale: 0.8,
+                    rotation: 1,
+                    delay: index * 0.1,
+                    ease: "power2.in",
+                    onComplete: () => {
+                        if (index === $navItems.length - 1) {
+                            $nav.css({
+                                'opacity': '0',
+                                'visibility': 'hidden'
+                            });
+                            $navContent.css({
+                                'opacity': '0',
+                                'visibility': 'hidden'
+                            });
+                        }
+                    }
+                });
+            });
+        }
+        
+        // اضافه کردن event listener برای کلیک روی آیکون منو
+        $menuIcon.on('click', function() {
+            if ($('body').hasClass('nav-active')) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
+        
+        // بستن منو با کلیک روی لینک‌ها
+        $nav.find('a').on('click', function() {
+            closeMenu();
+        });
+    }
 
     // Initialize
     $(document).ready(function() {
-        t();
-        n();
-        // ... سایر توابع initialize
+        initCursor();
+        initScroll();
+        navigation();
     });
 
 })(jQuery); 

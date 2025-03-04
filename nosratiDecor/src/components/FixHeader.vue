@@ -15,18 +15,6 @@ import { RouterLink } from 'vue-router';
                         </RouterLink>
                     </div>
                 </div>
-                <nav class=" accent-menu main-navigation">
-                    <ul class="extend-container">
-                        <!-- home -->
-                        <li class="custom-drop-down">
-                            <RouterLink to="/">خانه</RouterLink>
-                        </li>
-                        <!-- products -->
-                        <li class="custom-drop-down">
-                            <RouterLink to="/products">محصولات</RouterLink>
-                        </li>
-                    </ul>
-                </nav>
             </div>
         </div>
         <div class="header-top header-top-hamburger">
@@ -56,7 +44,16 @@ import { RouterLink } from 'vue-router';
                 <div class="nav">
                     <div class="inner">
                         <div class="nav__content">
-
+                            <nav class="accent-menu main-navigation">
+                                <ul class="primary-menu">
+                                    <li>
+                                        <RouterLink to="/">خانه</RouterLink>
+                                    </li>
+                                    <li>
+                                        <RouterLink to="/products">محصولات</RouterLink>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>
@@ -68,7 +65,6 @@ import { RouterLink } from 'vue-router';
                             <span>01024552406 , 01004392260</span>
                         </address>
                     </div>
-
                 </div>
             </div>
         </div>

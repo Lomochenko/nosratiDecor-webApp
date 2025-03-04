@@ -56,9 +56,12 @@
 
   <!-- scripts -->
   <script src="public/js/jquery-3.7.1.js"></script>
-  <script src="public/js/plugins.js"></script>
   <script src="public/js/mix.js"></script>
-  <script type="module" src="src/main.js"></script>
+  <script type="module">
+    import gsap from 'gsap';
+    window.gsap = gsap;
+    import './src/main.js';
+  </script>
 </body>
 
 </html>
