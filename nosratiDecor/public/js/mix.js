@@ -660,6 +660,71 @@ const dsnGrid = {
         });
     }
 
+    // تابع برای انیمیشن‌های data-dsn-animate
+    function initAnimate() {
+        // ثبت ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+
+        const $elements = $('[data-dsn-animate]');
+        if (!$elements.length) return;
+
+        $elements.each(function() {
+            const $this = $(this);
+            const animate = $this.data('dsn-animate');
+            const delay = $this.data('dsn-delay') || 0;
+            const duration = $this.data('dsn-duration') || 0.5;
+            
+            // تنظیم حالت اولیه
+            gsap.set($this[0], {
+                opacity: 0,
+                visibility: 'hidden'
+            });
+
+            // تنظیم transform بر اساس نوع انیمیشن
+            let initialTransform = 'none';
+            switch(animate) {
+                case 'up':
+                    initialTransform = 'translateY(30px)';
+                    break;
+                case 'down':
+                    initialTransform = 'translateY(-30px)';
+                    break;
+                case 'left':
+                    initialTransform = 'translateX(30px)';
+                    break;
+                case 'right':
+                    initialTransform = 'translateX(-30px)';
+                    break;
+                case 'scale':
+                    initialTransform = 'scale(0.9)';
+                    break;
+                case 'fade':
+                    initialTransform = 'none';
+                    break;
+            }
+
+            gsap.set($this[0], {
+                transform: initialTransform
+            });
+
+            // ایجاد انیمیشن با ScrollTrigger
+            gsap.to($this[0], {
+                scrollTrigger: {
+                    trigger: $this[0],
+                    start: 'top 85%',
+                    toggleActions: 'play none none reverse',
+                    once: true
+                },
+                opacity: 1,
+                visibility: 'visible',
+                transform: 'none',
+                duration: duration,
+                delay: delay,
+                ease: 'power2.out'
+            });
+        });
+    }
+
     // Initialize
     function init() {
         console.log('Initializing...'); // برای دیباگ
@@ -692,7 +757,17 @@ const dsnGrid = {
         initScroll();
         navigation();
         initImageZoom();
+        initAnimate();
         init();
     });
+
+    // اجرای کد بعد از حذف preloader
+    function afterPreloader() {
+        initCursor();
+        initScroll();
+        navigation();
+        initImageZoom();
+        initAnimate();
+    }
 
 })(jQuery); 
