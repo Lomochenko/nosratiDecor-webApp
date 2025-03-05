@@ -9,12 +9,18 @@ import 'swiper/css';
 import 'swiper/css/autoplay';
 
 // داده‌های اسلایدها
+import project1Image from '@/assets/img/project/project1/1.jpg';
+import project2Image from '@/assets/img/project/project1/6.jpg';
+import project3Image from '@/assets/img/project/project1/3.jpg';
+import project4Image from '@/assets/img/project/project1/4.jpg';
+import project5Image from '@/assets/img/project/project1/5.jpg';
+
 const slides = ref([
-  { image: '@/assets/img/project/project1/1.jpg', title: 'Slide 1' },
-  { image: '@/assets/img/project/project1/6.jpg', title: 'Slide 2' },
-  { image: '@/assets/img/project/project1/3.jpg', title: 'Slide 3' },
-  { image: '@/assets/img/project/project1/4.jpg', title: 'Slide 4' },
-  { image: '@/assets/img/project/project1/5.jpg', title: 'Slide 5' },
+  { image: project1Image, title: 'Slide 1' },
+  { image: project2Image, title: 'Slide 2' },
+  { image: project3Image, title: 'Slide 3' },
+  { image: project4Image, title: 'Slide 4' },
+  { image: project5Image, title: 'Slide 5' },
 ]);
 
 // Swiper moduls
@@ -56,7 +62,7 @@ const onSwiper = (swiper) => {
         <div class="row align-items-center h-100 w-100">
           <div class="col-lg-12">
             <div class="contenet-hero" id="dsn-hero-parallax-title">
-              <h1>DIGITAL CREATIVE <br> AGENCY</h1>
+              <h1>DIGITAL CREATIVE</h1>
               <p>We Bring Ideas To Life</p>
               <div class="link-custom">
                 <a href="project-9.html" class="image-zoom effect-ajax" data-dsn="parallax" data-dsn-ajax="slider">
