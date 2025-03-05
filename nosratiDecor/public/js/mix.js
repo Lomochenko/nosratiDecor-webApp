@@ -605,6 +605,61 @@ const dsnGrid = {
         }
     }
 
+    // تابع برای افکت zoom و parallax
+    function initImageZoom() {
+        const $imageZoom = $('.image-zoom');
+        if (!$imageZoom.length) return;
+
+        $imageZoom.each(function() {
+            const $this = $(this);
+            const $parent = $this.parent();
+            
+            // تنظیمات اولیه
+            $this.css({
+                'position': 'relative',
+                'overflow': 'hidden',
+                'transition': 'transform 0.5s ease-out'
+            });
+
+            // افکت hover
+            $this.on('mouseenter', function(e) {
+                const rect = this.getBoundingClientRect();
+                const relX = e.clientX - rect.left;
+                const relY = e.clientY - rect.top;
+                
+                gsap.to(this, {
+                    duration: 0.5,
+                    scale: 1.1,
+                    x: (relX / rect.width - 0.5) * 20,
+                    y: (relY / rect.height - 0.5) * 20,
+                    ease: 'power2.out'
+                });
+            }).on('mouseleave', function() {
+                gsap.to(this, {
+                    duration: 0.5,
+                    scale: 1,
+                    x: 0,
+                    y: 0,
+                    ease: 'power2.out'
+                });
+            });
+
+            // افکت parallax
+            if ($this.data('dsn') === 'parallax') {
+                wind.on('scroll', function() {
+                    const scrolled = wind.scrollTop();
+                    const rate = scrolled * 0.3;
+                    
+                    gsap.to($this[0], {
+                        duration: 0.5,
+                        y: rate,
+                        ease: 'power2.out'
+                    });
+                });
+            }
+        });
+    }
+
     // Initialize
     function init() {
         console.log('Initializing...'); // برای دیباگ
@@ -636,6 +691,7 @@ const dsnGrid = {
         initCursor();
         initScroll();
         navigation();
+        initImageZoom();
         init();
     });
 
