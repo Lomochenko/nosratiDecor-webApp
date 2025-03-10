@@ -895,53 +895,53 @@ function initMap() {
             animateTextAjax: '.headefr-fexid .project-title .title-text-header .cat ,[data-dsn-animate="ajax"] , footer, .next-project , .root-project'
         };
     (navigator.userAgent.match(/Edge/i) || navigator.userAgent.match(/MSIE 10/i) || navigator.userAgent.match(/MSIE 9/i)) && e(".cursor").css("display", "none"),
-        function() {
-            var t = e(".preloader"),
-                n = t.find(".preloader-block"),
-                a = n.find(".percent"),
-                o = n.find(".title"),
-                s = n.find(".loading"),
-                r = t.find(".preloader-bar"),
-                l = r.find(".preloader-progress"),
-                d = t.find(".preloader-after"),
-                c = t.find(".preloader-before"),
-                u = dsnGrid.pageLoad(0, 100, 300, function(e) {
-                    a.text(e), l.css("width", e + "%")
-                });
-            i.on("load", function() {
-                clearInterval(u), TweenMax.fromTo(l, .5, {
-                    width: "95%"
-                }, {
-                    width: "100%",
-                    onUpdate: function() {
-                        var e = l.width() / l.parent().width() * 100;
-                        a.text(parseInt(e, 10))
-                    },
-                    onComplete: function() {
-                        TweenMax.to(r, .5, {
-                            left: "100%"
-                        }), TweenMax.to(o, 1, {
-                            autoAlpha: 0,
-                            y: -100
-                        }), TweenMax.to(s, 1, {
-                            autoAlpha: 0,
-                            y: 100
-                        }), TweenMax.to(a, 1, {
-                            autoAlpha: 0
-                        }), TweenMax.to(c, 1, {
-                            y: "-100%",
-                            delay: .7
-                        }), TweenMax.to(d, 1, {
-                            y: "100%",
-                            delay: .7,
-                            onComplete: function() {
-                                t.addClass("hidden")
-                            }
-                        })
-                    }
-                })
-            })
-        }(),
+        // function() {
+        //     var t = e(".preloader"),
+        //         n = t.find(".preloader-block"),
+        //         a = n.find(".percent"),
+        //         o = n.find(".title"),
+        //         s = n.find(".loading"),
+        //         r = t.find(".preloader-bar"),
+        //         l = r.find(".preloader-progress"),
+        //         d = t.find(".preloader-after"),
+        //         c = t.find(".preloader-before"),
+        //         u = dsnGrid.pageLoad(0, 100, 300, function(e) {
+        //             a.text(e), l.css("width", e + "%")
+        //         });
+        //     i.on("load", function() {
+        //         clearInterval(u), TweenMax.fromTo(l, .5, {
+        //             width: "95%"
+        //         }, {
+        //             width: "100%",
+        //             onUpdate: function() {
+        //                 var e = l.width() / l.parent().width() * 100;
+        //                 a.text(parseInt(e, 10))
+        //             },
+        //             onComplete: function() {
+        //                 TweenMax.to(r, .5, {
+        //                     left: "100%"
+        //                 }), TweenMax.to(o, 1, {
+        //                     autoAlpha: 0,
+        //                     y: -100
+        //                 }), TweenMax.to(s, 1, {
+        //                     autoAlpha: 0,
+        //                     y: 100
+        //                 }), TweenMax.to(a, 1, {
+        //                     autoAlpha: 0
+        //                 }), TweenMax.to(c, 1, {
+        //                     y: "-100%",
+        //                     delay: .7
+        //                 }), TweenMax.to(d, 1, {
+        //                     y: "100%",
+        //                     delay: .7,
+        //                     onComplete: function() {
+        //                         t.addClass("hidden")
+        //                     }
+        //                 })
+        //             }
+        //         })
+        //     })
+        // }(),
         function() {
             var t = e(".menu-icon");
             e(".site-header .custom-drop-down > a").on("click", function() {
